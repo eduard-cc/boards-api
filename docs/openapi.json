@@ -1,8 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
+    "title": "Boards API",
+    "description": "The API for Boards, the project management and collaboration platform.",
+    "license": {
+      "name": "MIT License",
+      "url": "https://github.com/eduard-cc/boards-api/blob/main/LICENSE"
+    },
+    "version": "latest"
   },
   "servers": [
     {
@@ -10,57 +15,46 @@
       "description": "Boards API"
     }
   ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
+  "security": [{ "bearerAuth": [] }],
   "paths": {
     "/projects/{projectId}/issues/{issueId}": {
       "get": {
         "tags": ["issue-controller"],
+        "summary": "Get an issue by ID",
         "operationId": "getIssueById",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/IssueResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/IssueResponse" }
               }
             }
           }
@@ -68,58 +62,49 @@
       },
       "put": {
         "tags": ["issue-controller"],
+        "summary": "Update an issue",
         "operationId": "updateIssue",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IssueUpdateRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/IssueUpdateRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Issue updated successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/IssueResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/IssueResponse" }
               }
             }
           }
@@ -127,85 +112,73 @@
       },
       "delete": {
         "tags": ["issue-controller"],
+        "summary": "Delete an issue",
         "operationId": "deleteIssue",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Issue deleted successfully" }
         }
       }
     },
     "/projects": {
       "get": {
         "tags": ["project-controller"],
+        "summary": "Get projects by user ID",
         "operationId": "getProjectsByUserId",
         "parameters": [
           {
             "name": "userId",
             "in": "query",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectResponse"
-                  }
+                  "items": { "$ref": "#/components/schemas/ProjectResponse" }
                 }
               }
             }
@@ -214,6 +187,7 @@
       },
       "post": {
         "tags": ["project-controller"],
+        "summary": "Create a new project",
         "operationId": "createProject",
         "requestBody": {
           "content": {
@@ -227,6 +201,7 @@
                   },
                   "icon": {
                     "type": "string",
+                    "description": "Icon file",
                     "format": "binary"
                   }
                 }
@@ -236,25 +211,21 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Project created successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ProjectResponse" }
               }
             }
           }
@@ -264,41 +235,36 @@
     "/projects/{projectId}/issues": {
       "get": {
         "tags": ["issue-controller"],
+        "summary": "Get all issues by project ID",
         "operationId": "getIssuesByProjectId",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IssueResponse"
-                  }
+                  "items": { "$ref": "#/components/schemas/IssueResponse" }
                 }
               }
             }
@@ -307,49 +273,42 @@
       },
       "post": {
         "tags": ["issue-controller"],
+        "summary": "Create a new issue",
         "operationId": "createIssue",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IssueCreateRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/IssueCreateRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Issue created successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/IssueResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/IssueResponse" }
               }
             }
           }
@@ -359,50 +318,43 @@
     "/projects/{projectId}/issues/{issueId}/comments": {
       "get": {
         "tags": ["comment-controller"],
+        "summary": "Get all comments",
         "operationId": "getComments",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CommentResponse"
-                  }
+                  "items": { "$ref": "#/components/schemas/CommentResponse" }
                 }
               }
             }
@@ -411,58 +363,49 @@
       },
       "post": {
         "tags": ["comment-controller"],
+        "summary": "Create a new comment",
         "operationId": "createComment",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/CommentRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Comment created successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CommentResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/CommentResponse" }
               }
             }
           }
@@ -472,38 +415,33 @@
     "/auth/signup": {
       "post": {
         "tags": ["auth-controller"],
+        "summary": "Sign up a new user",
         "operationId": "signup",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SignupRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/SignupRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "User created successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/AccessTokenResponse" }
               }
             }
           }
@@ -513,38 +451,33 @@
     "/auth/login": {
       "post": {
         "tags": ["auth-controller"],
+        "summary": "Login a user",
         "operationId": "login",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/LoginRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "User logged in successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/AccessTokenResponse" }
               }
             }
           }
@@ -554,125 +487,106 @@
     "/users/{userId}/notifications/{notificationId}": {
       "delete": {
         "tags": ["notification-controller"],
+        "summary": "Delete a notification",
         "operationId": "deleteNotification",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "notificationId",
             "in": "path",
+            "description": "Notification ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Notification deleted successfully" }
         }
       },
       "patch": {
         "tags": ["notification-controller"],
+        "summary": "Toggle read status of a notification",
         "operationId": "toggleRead",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "notificationId",
             "in": "path",
+            "description": "Notification ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Notification status toggled successfully" }
         }
       }
     },
     "/users/{id}": {
       "get": {
         "tags": ["user-controller"],
+        "summary": "Get a user by ID",
         "operationId": "getUserById",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
               }
             }
           }
@@ -680,82 +594,70 @@
       },
       "delete": {
         "tags": ["user-controller"],
+        "summary": "Delete a user",
         "operationId": "deleteUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "User deleted successfully" }
         }
       },
       "patch": {
         "tags": ["user-controller"],
+        "summary": "Update user details",
         "operationId": "updateUserDetails",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserUpdateRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/UserUpdateRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "User details updated successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
               }
             }
           }
@@ -765,49 +667,43 @@
     "/users/{id}/picture": {
       "delete": {
         "tags": ["user-controller"],
+        "summary": "Delete user picture",
         "operationId": "deleteUserPicture",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "User picture deleted successfully" }
         }
       },
       "patch": {
         "tags": ["user-controller"],
+        "summary": "Update user picture",
         "operationId": "updateUserPicture",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
@@ -819,6 +715,7 @@
                 "properties": {
                   "image": {
                     "type": "string",
+                    "description": "Image file",
                     "format": "binary"
                   }
                 }
@@ -828,28 +725,23 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "User picture updated successfully",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "byte"
-                  }
+                  "items": { "type": "string", "format": "byte" }
                 }
               }
             }
@@ -860,94 +752,80 @@
     "/users/{id}/password": {
       "patch": {
         "tags": ["user-controller"],
+        "summary": "Update user password",
         "operationId": "updateUserPassword",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PasswordUpdateRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/PasswordUpdateRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "User password updated successfully" }
         }
       }
     },
     "/users/{id}/email": {
       "patch": {
         "tags": ["user-controller"],
+        "summary": "Update user email",
         "operationId": "updateUserEmail",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmailUpdateRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/EmailUpdateRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "User email updated successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/AccessTokenResponse" }
               }
             }
           }
@@ -957,25 +835,22 @@
     "/projects/{projectId}/issues/{issueId}/status": {
       "patch": {
         "tags": ["issue-controller"],
+        "summary": "Update issue status",
         "operationId": "updateStatus",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
@@ -990,25 +865,21 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Issue status updated successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/IssueResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/IssueResponse" }
               }
             }
           }
@@ -1018,118 +889,98 @@
     "/projects/{projectId}/issues/{issueId}/comments/{commentId}": {
       "delete": {
         "tags": ["comment-controller"],
+        "summary": "Delete a comment",
         "operationId": "deleteComment",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "commentId",
             "in": "path",
+            "description": "Comment ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Comment deleted successfully" }
         }
       },
       "patch": {
         "tags": ["comment-controller"],
+        "summary": "Edit a comment",
         "operationId": "editComment",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "issueId",
             "in": "path",
+            "description": "Issue ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "commentId",
             "in": "path",
+            "description": "Comment ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/CommentRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Comment edited successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CommentResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/CommentResponse" }
               }
             }
           }
@@ -1137,124 +988,72 @@
       }
     },
     "/projects/{id}": {
-      "get": {
-        "tags": ["project-controller"],
-        "operationId": "getProjectById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectResponse"
-                }
-              }
-            }
-          }
-        }
-      },
       "delete": {
         "tags": ["project-controller"],
+        "summary": "Delete a project",
         "operationId": "deleteProject",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Project deleted successfully" }
         }
       },
       "patch": {
         "tags": ["project-controller"],
+        "summary": "Update project details",
         "operationId": "updateProjectDetails",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectUpdateRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/ProjectUpdateRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Project details updated successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ProjectResponse" }
               }
             }
           }
@@ -1264,51 +1063,44 @@
     "/projects/{id}/members": {
       "patch": {
         "tags": ["project-controller"],
+        "summary": "Invite members to a project",
         "operationId": "inviteMembers",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InviteUsersRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/InviteUsersRequest" }
             }
           },
           "required": true
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Members invited successfully",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MemberResponse"
-                  }
+                  "items": { "$ref": "#/components/schemas/MemberResponse" }
                 }
               }
             }
@@ -1319,49 +1111,43 @@
     "/projects/{id}/icon": {
       "delete": {
         "tags": ["project-controller"],
+        "summary": "Delete project icon",
         "operationId": "deleteProjectIcon",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Project icon deleted successfully" }
         }
       },
       "patch": {
         "tags": ["project-controller"],
+        "summary": "Update project icon",
         "operationId": "updateProjectIcon",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
@@ -1373,6 +1159,7 @@
                 "properties": {
                   "image": {
                     "type": "string",
+                    "description": "Image file",
                     "format": "binary"
                   }
                 }
@@ -1382,28 +1169,23 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Project icon updated successfully",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "byte"
-                  }
+                  "items": { "type": "string", "format": "byte" }
                 }
               }
             }
@@ -1414,39 +1196,34 @@
     "/members/{memberId}": {
       "get": {
         "tags": ["member-controller"],
+        "summary": "Get a member by ID",
         "operationId": "getMemberById",
         "parameters": [
           {
             "name": "memberId",
             "in": "path",
+            "description": "Member ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemberResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/MemberResponse" }
               }
             }
           }
@@ -1454,49 +1231,43 @@
       },
       "delete": {
         "tags": ["member-controller"],
+        "summary": "Remove a member",
         "operationId": "removeMember",
         "parameters": [
           {
             "name": "memberId",
             "in": "path",
+            "description": "Member ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Member removed successfully" }
         }
       },
       "patch": {
         "tags": ["member-controller"],
+        "summary": "Update member role",
         "operationId": "updateMemberRole",
         "parameters": [
           {
             "name": "memberId",
             "in": "path",
+            "description": "Member ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "requestBody": {
@@ -1511,25 +1282,21 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Member role updated successfully",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemberResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/MemberResponse" }
               }
             }
           }
@@ -1539,30 +1306,27 @@
     "/users": {
       "get": {
         "tags": ["user-controller"],
+        "summary": "Get all users",
         "operationId": "getAllUsers",
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserResponse"
-                  }
+                  "items": { "$ref": "#/components/schemas/UserResponse" }
                 }
               }
             }
@@ -1573,34 +1337,31 @@
     "/users/{userId}/notifications": {
       "get": {
         "tags": ["notification-controller"],
+        "summary": "Get notifications by user ID",
         "operationId": "getNotificationsByUserId",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
                 "schema": {
@@ -1616,73 +1377,64 @@
       },
       "delete": {
         "tags": ["notification-controller"],
+        "summary": "Delete all notifications",
         "operationId": "deleteAllNotifications",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
-          "200": {
-            "description": "OK"
-          }
+          "204": { "description": "Notifications deleted successfully" }
         }
       }
     },
     "/users/email": {
       "get": {
         "tags": ["user-controller"],
+        "summary": "Get a user by email",
         "operationId": "getUserByEmail",
         "parameters": [
           {
             "name": "email",
             "in": "query",
+            "description": "Email",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
               }
             }
           }
@@ -1692,41 +1444,36 @@
     "/projects/{projectId}/members": {
       "get": {
         "tags": ["member-controller"],
+        "summary": "Get members by project ID",
         "operationId": "getMembersByProjectId",
         "parameters": [
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MemberResponse"
-                  }
+                  "items": { "$ref": "#/components/schemas/MemberResponse" }
                 }
               }
             }
@@ -1737,48 +1484,41 @@
     "/projects/{projectId}/members/{userId}": {
       "get": {
         "tags": ["member-controller"],
+        "summary": "Get current member",
         "operationId": "getCurrentMember",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "User ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           },
           {
             "name": "projectId",
             "in": "path",
+            "description": "Project ID",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "integer", "format": "int64" }
           }
         ],
         "responses": {
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                  "additionalProperties": { "type": "string" }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemberResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/MemberResponse" }
               }
             }
           }
@@ -1795,79 +1535,102 @@
           "title": {
             "maxLength": 100,
             "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "description": "New title of the issue",
+            "example": "Updated Issue Title"
           },
           "description": {
             "maxLength": 2000,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "New description of the issue",
+            "example": "Updated Issue Description"
           },
           "assigneeMemberId": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the member assigned to the issue",
+            "format": "int64",
+            "example": 1
           },
           "type": {
             "type": "string",
+            "description": "New type of the issue",
             "enum": ["EPIC", "TASK", "BUG"]
           },
           "status": {
             "type": "string",
+            "description": "New status of the issue",
             "enum": ["TO_DO", "IN_PROGRESS", "DONE", "CANCELED"]
           },
           "priority": {
             "type": "string",
+            "description": "New priority of the issue",
             "enum": ["HIGHEST", "HIGH", "MEDIUM", "LOW", "LOWEST"]
           },
           "dueOn": {
             "type": "string",
-            "format": "date"
+            "description": "New due date for the issue",
+            "format": "date",
+            "example": "2022-01-01"
           }
-        }
+        },
+        "description": "Issue update request"
       },
       "IssueResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the issue",
+            "format": "int64",
+            "example": 1
           },
           "key": {
-            "type": "string"
+            "type": "string",
+            "description": "Key of the issue",
+            "example": "IK"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "description": "Title of the issue",
+            "example": "Issue Title"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the issue",
+            "example": "Issue Description"
           },
-          "assignee": {
-            "$ref": "#/components/schemas/MemberResponse"
-          },
+          "assignee": { "$ref": "#/components/schemas/MemberResponse" },
           "type": {
             "type": "string",
+            "description": "Type of the issue",
             "enum": ["EPIC", "TASK", "BUG"]
           },
           "status": {
             "type": "string",
+            "description": "Status of the issue",
             "enum": ["TO_DO", "IN_PROGRESS", "DONE", "CANCELED"]
           },
           "priority": {
             "type": "string",
+            "description": "Priority of the issue",
             "enum": ["HIGHEST", "HIGH", "MEDIUM", "LOW", "LOWEST"]
           },
           "createdOn": {
             "type": "string",
+            "description": "Date and time when the issue was created",
             "format": "date-time"
           },
           "dueOn": {
             "type": "string",
-            "format": "date"
+            "description": "Due date for the issue",
+            "format": "date",
+            "example": "2022-01-01"
           },
-          "createdBy": {
-            "$ref": "#/components/schemas/MemberResponse"
-          },
+          "createdBy": { "$ref": "#/components/schemas/MemberResponse" },
           "updatedOn": {
             "type": "string",
+            "description": "Date and time when the issue was last updated",
             "format": "date-time"
           }
         }
@@ -1877,61 +1640,78 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the member",
+            "format": "int64",
+            "example": 1
           },
-          "user": {
-            "$ref": "#/components/schemas/UserResponse"
-          },
+          "user": { "$ref": "#/components/schemas/UserResponse" },
           "role": {
             "type": "string",
+            "description": "Role of the member",
             "enum": ["OWNER", "ADMIN", "DEVELOPER", "VIEWER"]
           },
           "joinedOn": {
             "type": "string",
-            "format": "date"
+            "description": "Date when the member joined",
+            "format": "date",
+            "example": "2022-01-01"
           }
-        }
+        },
+        "description": "Member who created the issue"
       },
       "UserResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the user",
+            "format": "int64",
+            "example": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the user",
+            "example": "John Doe"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email of the user",
+            "example": "john.doe@example.com"
           },
           "company": {
-            "type": "string"
+            "type": "string",
+            "description": "Company of the user",
+            "example": "Acme Corp"
           },
           "location": {
-            "type": "string"
+            "type": "string",
+            "description": "Location of the user",
+            "example": "San Francisco"
           },
           "picture": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "byte"
-            }
+            "type": "string",
+            "description": "Picture of the user",
+            "format": "binary"
           }
-        }
+        },
+        "description": "User associated with the member"
       },
       "MemberRequest": {
         "required": ["email", "role"],
         "type": "object",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email of the member",
+            "example": "john.doe@example.com"
           },
           "role": {
             "type": "string",
+            "description": "Role of the member",
             "enum": ["OWNER", "ADMIN", "DEVELOPER", "VIEWER"]
           }
-        }
+        },
+        "description": "List of members"
       },
       "ProjectCreateRequest": {
         "required": ["members"],
@@ -1940,40 +1720,48 @@
           "name": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "description": "Name of the project",
+            "example": "Project Alpha"
           },
           "key": {
             "maxLength": 5,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "description": "Key of the project",
+            "example": "PA"
           },
           "members": {
             "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MemberRequest"
-            }
+            "description": "List of members",
+            "items": { "$ref": "#/components/schemas/MemberRequest" }
           }
-        }
+        },
+        "description": "Project create request"
       },
       "ProjectResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the project",
+            "format": "int64",
+            "example": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the project",
+            "example": "Project Alpha"
           },
           "key": {
-            "type": "string"
+            "type": "string",
+            "description": "Key of the project",
+            "example": "PA"
           },
           "icon": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "byte"
-            }
+            "type": "string",
+            "description": "Icon of the project",
+            "format": "binary"
           }
         }
       },
@@ -1984,38 +1772,52 @@
           "title": {
             "maxLength": 100,
             "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "description": "Title of the issue",
+            "example": "Issue Title"
           },
           "description": {
             "maxLength": 2000,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "Description of the issue",
+            "example": "Issue Description"
           },
           "assigneeMemberId": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the member assigned to the issue",
+            "format": "int64",
+            "example": 1
           },
           "type": {
             "type": "string",
+            "description": "Type of the issue",
             "enum": ["EPIC", "TASK", "BUG"]
           },
           "status": {
             "type": "string",
+            "description": "Status of the issue",
             "enum": ["TO_DO", "IN_PROGRESS", "DONE", "CANCELED"]
           },
           "priority": {
             "type": "string",
+            "description": "Priority of the issue",
             "enum": ["HIGHEST", "HIGH", "MEDIUM", "LOW", "LOWEST"]
           },
           "dueOn": {
             "type": "string",
-            "format": "date"
+            "description": "Due date for the issue",
+            "format": "date",
+            "example": "2022-01-01"
           },
           "createdByUserId": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the user who created the issue",
+            "format": "int64",
+            "example": 1
           }
-        }
+        },
+        "description": "Issue create request"
       },
       "CommentRequest": {
         "type": "object",
@@ -2023,30 +1825,37 @@
           "body": {
             "maxLength": 500,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "Body of the comment",
+            "example": "This is a comment"
           }
-        }
+        },
+        "description": "Comment request"
       },
       "CommentResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the comment",
+            "format": "int64",
+            "example": 1
           },
-          "createdBy": {
-            "$ref": "#/components/schemas/MemberResponse"
-          },
+          "createdBy": { "$ref": "#/components/schemas/MemberResponse" },
           "createdOn": {
             "type": "string",
+            "description": "Date and time when the comment was created",
             "format": "date-time"
           },
           "lastUpdatedOn": {
             "type": "string",
+            "description": "Date and time when the comment was last updated",
             "format": "date-time"
           },
           "body": {
-            "type": "string"
+            "type": "string",
+            "description": "Body of the comment",
+            "example": "This is a comment."
           }
         }
       },
@@ -2057,23 +1866,32 @@
           "name": {
             "maxLength": 50,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "description": "Name of the user",
+            "example": "John Doe"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email of the user",
+            "example": "john.doe@example.com"
           },
           "password": {
             "maxLength": 255,
             "minLength": 8,
-            "type": "string"
+            "type": "string",
+            "description": "Password of the user",
+            "example": "password123"
           }
-        }
+        },
+        "description": "Signup request"
       },
       "AccessTokenResponse": {
         "type": "object",
         "properties": {
           "accessToken": {
-            "type": "string"
+            "type": "string",
+            "description": "Access token for the user",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
           }
         }
       },
@@ -2082,14 +1900,19 @@
         "type": "object",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email of the user",
+            "example": "john.doe@example.com"
           },
           "password": {
             "maxLength": 255,
             "minLength": 8,
-            "type": "string"
+            "type": "string",
+            "description": "Password of the user",
+            "example": "password123"
           }
-        }
+        },
+        "description": "Login request"
       },
       "UserUpdateRequest": {
         "required": ["name"],
@@ -2098,24 +1921,33 @@
           "name": {
             "maxLength": 50,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "description": "Name of the user",
+            "example": "John Doe"
           },
           "jobTitle": {
             "maxLength": 50,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "Job title of the user",
+            "example": "Software Engineer"
           },
           "company": {
             "maxLength": 50,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "Company of the user",
+            "example": "Acme Corp"
           },
           "location": {
             "maxLength": 50,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "Location of the user",
+            "example": "San Francisco"
           }
-        }
+        },
+        "description": "User update request"
       },
       "PasswordUpdateRequest": {
         "required": ["currentPassword", "newPassword"],
@@ -2124,23 +1956,31 @@
           "currentPassword": {
             "maxLength": 255,
             "minLength": 8,
-            "type": "string"
+            "type": "string",
+            "description": "Current password of the user",
+            "example": "password123"
           },
           "newPassword": {
             "maxLength": 255,
             "minLength": 8,
-            "type": "string"
+            "type": "string",
+            "description": "New password for the user",
+            "example": "newpassword123"
           }
-        }
+        },
+        "description": "Password update request"
       },
       "EmailUpdateRequest": {
         "required": ["newEmail"],
         "type": "object",
         "properties": {
           "newEmail": {
-            "type": "string"
+            "type": "string",
+            "description": "New email for the user",
+            "example": "john.doe@example.com"
           }
-        }
+        },
+        "description": "Email update request"
       },
       "IssueStatusUpdateRequest": {
         "required": ["status"],
@@ -2148,9 +1988,11 @@
         "properties": {
           "status": {
             "type": "string",
+            "description": "New status of the issue",
             "enum": ["TO_DO", "IN_PROGRESS", "DONE", "CANCELED"]
           }
-        }
+        },
+        "description": "Issue status update request"
       },
       "ProjectUpdateRequest": {
         "type": "object",
@@ -2158,14 +2000,19 @@
           "name": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "description": "Name of the project",
+            "example": "Project Alpha"
           },
           "key": {
             "maxLength": 5,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "description": "Key of the project",
+            "example": "PA"
           }
-        }
+        },
+        "description": "Project update request"
       },
       "InviteUsersRequest": {
         "required": ["members"],
@@ -2173,11 +2020,11 @@
         "properties": {
           "members": {
             "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MemberRequest"
-            }
+            "description": "List of members to invite",
+            "items": { "$ref": "#/components/schemas/MemberRequest" }
           }
-        }
+        },
+        "description": "Invite users request"
       },
       "MemberRoleUpdateRequest": {
         "required": ["role"],
@@ -2185,39 +2032,39 @@
         "properties": {
           "role": {
             "type": "string",
+            "description": "New role of the member",
             "enum": ["OWNER", "ADMIN", "DEVELOPER", "VIEWER"]
           }
-        }
+        },
+        "description": "Member role update request"
       },
       "NotificationResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "description": "ID of the notification",
+            "format": "int64",
+            "example": 1
           },
           "type": {
             "type": "string",
+            "description": "Type of the notification",
             "enum": ["ADDED_TO_PROJECT", "ASSIGNED_TO_ISSUE"]
           },
-          "sender": {
-            "$ref": "#/components/schemas/MemberResponse"
-          },
-          "receiver": {
-            "$ref": "#/components/schemas/MemberResponse"
-          },
-          "issue": {
-            "$ref": "#/components/schemas/IssueResponse"
-          },
-          "project": {
-            "$ref": "#/components/schemas/ProjectResponse"
-          },
+          "sender": { "$ref": "#/components/schemas/MemberResponse" },
+          "receiver": { "$ref": "#/components/schemas/MemberResponse" },
+          "issue": { "$ref": "#/components/schemas/IssueResponse" },
+          "project": { "$ref": "#/components/schemas/ProjectResponse" },
           "timestamp": {
             "type": "string",
+            "description": "Timestamp of the notification",
             "format": "date-time"
           },
           "read": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Read status of the notification",
+            "example": false
           }
         }
       }
