@@ -1,6 +1,6 @@
 # Boards API
 
-The API for Boards, a project management and collaboration platform. Ideal for both team and solo projects, it allows users to track issues and ensures a smooth workflow.
+The API for Boards, a project management and collaboration platform. Ideal for both team and solo projects, it allows users to track tasks and ensures a smooth workflow.
 
 ## Documentation
 
@@ -8,4 +8,4 @@ This is a RESTful API built in Java Spring Boot. The Swagger UI from the OpenAPI
 
 ## Web application
 
-The web application can be accessed [here](https://eduard-cc.github.io/boards-web/). The frontend's source code is available [here](https://github.com/eduard-cc/boards-web).
+The web application can be accessed [here](https://eduard-cc.github.io/boards-web/) and its repository [here](https://github.com/eduard-cc/boards-web).
