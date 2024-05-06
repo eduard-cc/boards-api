@@ -1,6 +1,6 @@
 # Boards API
 
-The API for Boards, a project management and collaboration platform. Ideal for both team and solo projects, it allows users to track tasks and ensures a smooth workflow.
+The API for Boards, a project management and collaboration platform.
 
 ## Documentation
 
