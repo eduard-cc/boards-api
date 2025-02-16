@@ -9,12 +9,6 @@
     },
     "version": "latest"
   },
-  "servers": [
-    {
-      "url": "https://boards-api.ashysmoke-79f09cd7.uksouth.azurecontainerapps.io",
-      "description": "Boards API"
-    }
-  ],
   "security": [{ "bearerAuth": [] }],
   "paths": {
     "/projects/{projectId}/issues/{issueId}": {
